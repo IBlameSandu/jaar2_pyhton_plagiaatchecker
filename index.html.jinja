@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      th,
+      td {
+        padding: 1vh 2vw;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <th>combinaties</th>
+        {% for autheur in autheurs %}
+        <th>{{ anonimisatie[autheur] }}</th>
+        {% endfor %}
+      </tr>
+      {% for autheurLinks in autheurs[:-1] %}
+      <tr>
+        <td>{{ anonimisatie[autheurLinks] }}</td>
+        {% for autheurBoven in autheurs %} {% if autheurLinks == autheurBoven %}
+        <td>/</td>
+        {% else %} {% set plagiaat =
+        combinaties.get(autheurLinks,{}).get(autheurBoven, []) %} {% if plagiaat
+        %}
+        <td>
+          <ul>
+            {% for comment in plagiaat %}<li>{{comment}}</li>{%endfor%}
+          </ul>
+        </td>
+        {% else %}
+        <td>/</td>
+        {% endif %} {% endif %} {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
